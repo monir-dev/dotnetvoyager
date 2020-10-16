@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30330.147
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Voyager.Core", "Voyager.Core\Voyager.Core.csproj", "{021D4ADC-E317-44DD-B6C9-ACB0E7940D56}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Voyager.Database", "Voyager.Database\Voyager.Database.sqlproj", "{73D917F0-6DEB-451A-9955-476E3AE17C69}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{021D4ADC-E317-44DD-B6C9-ACB0E7940D56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{021D4ADC-E317-44DD-B6C9-ACB0E7940D56}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{021D4ADC-E317-44DD-B6C9-ACB0E7940D56}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{021D4ADC-E317-44DD-B6C9-ACB0E7940D56}.Release|Any CPU.Build.0 = Release|Any CPU
+		{73D917F0-6DEB-451A-9955-476E3AE17C69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73D917F0-6DEB-451A-9955-476E3AE17C69}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73D917F0-6DEB-451A-9955-476E3AE17C69}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{73D917F0-6DEB-451A-9955-476E3AE17C69}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73D917F0-6DEB-451A-9955-476E3AE17C69}.Release|Any CPU.Build.0 = Release|Any CPU
+		{73D917F0-6DEB-451A-9955-476E3AE17C69}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FD4B1A18-D6FE-4109-B996-6B93D07F2FBA}
+	EndGlobalSection
+EndGlobal
