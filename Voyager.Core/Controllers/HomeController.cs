@@ -14,6 +14,8 @@ using Voyager.Core.Utility;
 using Microsoft.CSharp;
 using System.Collections;
 using System.Reflection;
+using SqlKata;
+using SqlKata.Extensions;
 
 namespace Voyager.Core.Controllers
 {
@@ -53,6 +55,21 @@ namespace Voyager.Core.Controllers
 
 
             //var test = model.GetType().GetProperty("tableName").GetValue(model, null);
+
+
+            // Adding Query Scope Start
+
+            var query = _db.Query("AspNetUsers");
+
+            if(model.checkFunc("LocalScope"))
+            {
+                query = model.func("LocalScope", new object[] { query }) as Query;
+            }
+
+            var result = query.Get();
+
+            // Adding Query Scope End
+
 
             // Query
             var users = _db.Query("AspNetUsers").Get();

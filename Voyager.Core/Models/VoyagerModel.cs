@@ -9,6 +9,8 @@ namespace Voyager.Core.Models
     {
         public object this[string propertyName] => GetType().GetProperty(propertyName)?.GetValue(this, null);
 
-        public object func(string functionName, object[] args = null) => GetType().GetMethod(functionName).Invoke(this, args ?? new object[] { });
+        public object func(string functionName, object[] args = null) => GetType().GetMethod(functionName)?.Invoke(this, args ?? new object[] { });
+
+        public bool checkFunc(string functionName) => GetType().GetMethod(functionName) != null;
     }
 }

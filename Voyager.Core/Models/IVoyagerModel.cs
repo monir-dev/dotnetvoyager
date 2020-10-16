@@ -10,5 +10,6 @@ namespace Voyager.Core.Models
         object this[string propertyName] { get; }
 
         object func(string functionName, object[] args = null);
+        bool checkFunc(string functionName);
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SqlKata;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -16,5 +17,11 @@ namespace Voyager.Core.Models
         }
 
         public int add(int x, int y) => x + y;
+
+        public Query LocalScope(Query query)
+        {
+            query = query.Where($"{TableName}.Email", "!=", "admin@gmail.com");
+            return query;
+        }
     }
 }
