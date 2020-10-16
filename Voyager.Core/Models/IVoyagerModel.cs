@@ -7,5 +7,8 @@ namespace Voyager.Core.Models
 {
     public interface IVoyagerModel
     {
+        object this[string propertyName] { get; }
+
+        object func(string functionName, object[] args = null);
     }
 }

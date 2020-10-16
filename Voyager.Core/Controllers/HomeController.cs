@@ -6,10 +6,14 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Microsoft.VisualBasic.CompilerServices;
 using SqlKata.Execution;
 using Voyager.Core.Connections;
 using Voyager.Core.Models;
 using Voyager.Core.Utility;
+using Microsoft.CSharp;
+using System.Collections;
+using System.Reflection;
 
 namespace Voyager.Core.Controllers
 {
@@ -29,17 +33,26 @@ namespace Voyager.Core.Controllers
 
             // Get Class Instance
             //https://jeremylindsayni.wordpress.com/2019/02/11/instantiating-a-c-object-from-a-string-using-activator-createinstance-in-net/
-            const string objectToInstantiate = "Voyager.Core.Models.User, Voyager.Core";
-
-            var objectType = Type.GetType(objectToInstantiate);
+            
+            var objectType = ObjectInstance.GetClassType<IVoyagerModel>("User");
 
             var instantiatedObject = Activator.CreateInstance(objectType) as User;
             // get a property value
-            var tableName = instantiatedObject.tableName;
+            var tableName = instantiatedObject.TableName;
+
+            IVoyagerModel model = (IVoyagerModel) ObjectInstance.GetObjectInstanceOfDifferentAssembly(objectType.AssemblyQualifiedName);
+
+            var typer = ObjectInstance.GetClassType<IVoyagerModel>("User");
+
+            Dictionary<string, IVoyagerModel> classes = new Dictionary<string, IVoyagerModel>();
+            classes.Add("User", new User());
 
 
-            //var model = ObjectInstance.GetGenericInstanceOfDifferentAssembly<IVoyagerModel>("Voyager.Core.Models.User, Voyager.Core");
-            var model = ObjectInstance.GetVoyagerModelInstanceOfDifferentAssembly("Voyager.Core.Models.User, Voyager.Core");
+            var res = model.func("testfunction");
+            var addition = model.func("add", new object[] { 4, 6 });
+
+
+            //var test = model.GetType().GetProperty("tableName").GetValue(model, null);
 
             // Query
             var users = _db.Query("AspNetUsers").Get();
@@ -47,19 +60,14 @@ namespace Voyager.Core.Controllers
             return Ok(users);
             return View();
         }
-        public IVoyagerModel GetInstance(string FullyQualifiedNameOfClass)
+
+        public List<string> GetAllEntities()
         {
-            Type type = Type.GetType(FullyQualifiedNameOfClass);
-            if (type != null)
-                return (IVoyagerModel)Activator.CreateInstance(type);
-            foreach (var asm in AppDomain.CurrentDomain.GetAssemblies())
-            {
-                type = asm.GetType(FullyQualifiedNameOfClass);
-                if (type != null)
-                    return (IVoyagerModel)Activator.CreateInstance(type);
-            }
-            return null;
+            return AppDomain.CurrentDomain.GetAssemblies().SelectMany(x => x.GetTypes())
+                 .Where(x => typeof(IVoyagerModel).IsAssignableFrom(x) && !x.IsInterface && !x.IsAbstract)
+                 .Select(x => x.Name).ToList();
         }
+
 
         public IActionResult Privacy()
         {

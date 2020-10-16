@@ -8,6 +8,21 @@ namespace Voyager.Core.Utility
 {
     public class ObjectInstance
     {
+
+        /// <summary>
+        /// Get Type of class from string class name
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="className"></param>
+        /// <returns></returns>
+        public static Type GetClassType<T>(string className)
+        {
+            Type type = AppDomain.CurrentDomain.GetAssemblies().SelectMany(x => x.GetTypes())
+                 .Where(x => typeof(T).IsAssignableFrom(x) && !x.IsInterface && !x.IsAbstract && x.Name == className)
+                 .First();
+            return type;
+        }
+
         /// <summary>
         /// Get Instance of a class as an object. Need to cast to actual Class.
         /// </summary>
@@ -77,5 +92,6 @@ namespace Voyager.Core.Utility
             }
             return default(T);
         }
+
     }
 }
