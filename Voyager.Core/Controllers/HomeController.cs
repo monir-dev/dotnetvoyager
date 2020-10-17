@@ -42,19 +42,14 @@ namespace Voyager.Core.Controllers
             // get a property value
             var tableName = instantiatedObject.TableName;
 
-            IVoyagerModel model = (IVoyagerModel) ObjectInstance.GetObjectInstanceOfDifferentAssembly(objectType.AssemblyQualifiedName);
 
-            var typer = ObjectInstance.GetClassType<IVoyagerModel>("User");
 
-            Dictionary<string, IVoyagerModel> classes = new Dictionary<string, IVoyagerModel>();
-            classes.Add("User", new User());
 
+            IVoyagerModel model = (IVoyagerModel) ObjectInstance.GetObjectInstanceOfDifferentAssembly("User");
 
             var res = model.func("testfunction");
             var addition = model.func("add", new object[] { 4, 6 });
 
-
-            //var test = model.GetType().GetProperty("tableName").GetValue(model, null);
 
 
             // Adding Query Scope Start
@@ -78,12 +73,7 @@ namespace Voyager.Core.Controllers
             return View();
         }
 
-        public List<string> GetAllEntities()
-        {
-            return AppDomain.CurrentDomain.GetAssemblies().SelectMany(x => x.GetTypes())
-                 .Where(x => typeof(IVoyagerModel).IsAssignableFrom(x) && !x.IsInterface && !x.IsAbstract)
-                 .Select(x => x.Name).ToList();
-        }
+        
 
 
         public IActionResult Privacy()

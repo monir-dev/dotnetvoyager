@@ -1,0 +1,16 @@
+﻿CREATE TABLE [dbo].[data_rows]
+(
+	[id] INT NOT NULL PRIMARY KEY IDENTITY, 
+	[data_type_id] INT NOT NULL, 
+	[field] NVARCHAR(255) NOT NULL,
+	[type] NVARCHAR(255) NOT NULL,
+	[display_name] NVARCHAR(255) NOT NULL,
+	[required] TINYINT NOT NULL DEFAULT 0,
+	[browse] TINYINT NOT NULL DEFAULT 1,
+	[read] TINYINT NOT NULL DEFAULT 1,
+	[edit] TINYINT NOT NULL DEFAULT 1,
+	[add] TINYINT NOT NULL DEFAULT 1,
+	[delete] TINYINT NOT NULL DEFAULT 1,
+	[details] TEXT NULL, 
+	[order] INT NOT NULL
+)

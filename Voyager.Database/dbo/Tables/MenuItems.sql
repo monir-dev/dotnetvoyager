@@ -1,0 +1,16 @@
+﻿CREATE TABLE [dbo].[menu_items]
+(
+	[id] INT NOT NULL PRIMARY KEY IDENTITY, 
+	[menu_id] INT NULL DEFAULT NULL,
+	[title] NVARCHAR(255) NOT NULL,
+	[url] NVARCHAR(255) NOT NULL,
+	[target] NVARCHAR(255) NOT NULL DEFAULT '_self',
+	[icon_class] NVARCHAR(255) NULL DEFAULT NULL,
+	[color] NVARCHAR(255) NULL DEFAULT NULL,
+	[parent_id] int NULL DEFAULT NULL,
+	[order] int NOT NULL,
+	[route] NVARCHAR(255) NULL DEFAULT NULL,
+	[parameters] TEXT NULL,
+	[created_at] DATETIME2 NULL,
+	[updated_at] DATETIME2 NULL,
+)

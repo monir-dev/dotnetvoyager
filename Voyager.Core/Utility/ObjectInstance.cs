@@ -9,6 +9,13 @@ namespace Voyager.Core.Utility
     public class ObjectInstance
     {
 
+        public List<string> GetAllEntities()
+        {
+            return AppDomain.CurrentDomain.GetAssemblies().SelectMany(x => x.GetTypes())
+                 .Where(x => typeof(IVoyagerModel).IsAssignableFrom(x) && !x.IsInterface && !x.IsAbstract)
+                 .Select(x => x.Name).ToList();
+        }
+
         /// <summary>
         /// Get Type of class from string class name
         /// </summary>
@@ -28,8 +35,11 @@ namespace Voyager.Core.Utility
         /// </summary>
         /// <param name="FullyQualifiedNameOfClass"></param>
         /// <returns></returns>
-        public static object GetObjectInstanceOfSameAssembly(string FullyQualifiedNameOfClass)
+        public static object GetObjectInstanceOfSameAssembly(string className)
         {
+            var objectType = ObjectInstance.GetClassType<IVoyagerModel>(className);
+            string FullyQualifiedNameOfClass = objectType.AssemblyQualifiedName;
+
             Type t = Type.GetType(FullyQualifiedNameOfClass);
             return Activator.CreateInstance(t);
         }
@@ -39,8 +49,11 @@ namespace Voyager.Core.Utility
         /// </summary>
         /// <param name="FullyQualifiedNameOfClass"></param>
         /// <returns></returns>
-        public static object GetObjectInstanceOfDifferentAssembly(string FullyQualifiedNameOfClass)
+        public static object GetObjectInstanceOfDifferentAssembly(string className)
         {
+            var objectType = ObjectInstance.GetClassType<IVoyagerModel>(className);
+            string FullyQualifiedNameOfClass = objectType.AssemblyQualifiedName;
+
             Type type = Type.GetType(FullyQualifiedNameOfClass);
             if (type != null)
                 return Activator.CreateInstance(type);
@@ -59,8 +72,11 @@ namespace Voyager.Core.Utility
         /// </summary>
         /// <param name="FullyQualifiedNameOfClass"></param>
         /// <returns></returns>
-        public static IVoyagerModel GetVoyagerModelInstanceOfDifferentAssembly(string FullyQualifiedNameOfClass)
+        public static IVoyagerModel GetVoyagerModelInstanceOfDifferentAssembly(string className)
         {
+            var objectType = ObjectInstance.GetClassType<IVoyagerModel>(className);
+            string FullyQualifiedNameOfClass = objectType.AssemblyQualifiedName;
+
             Type type = Type.GetType(FullyQualifiedNameOfClass);
             if (type != null)
                 return (IVoyagerModel)Activator.CreateInstance(type);
@@ -79,8 +95,12 @@ namespace Voyager.Core.Utility
         /// <typeparam name="T"></typeparam>
         /// <param name="FullyQualifiedNameOfClass"></param>
         /// <returns></returns>
-        public static T GetGenericInstanceOfDifferentAssembly<T>(string FullyQualifiedNameOfClass)
+        public static T GetGenericInstanceOfDifferentAssembly<T>(string className)
         {
+            var objectType = ObjectInstance.GetClassType<IVoyagerModel>(className);
+
+            string FullyQualifiedNameOfClass = objectType.AssemblyQualifiedName;
+
             Type type = Type.GetType(FullyQualifiedNameOfClass);
             if (type != null)
                 return (T)Activator.CreateInstance(type);
