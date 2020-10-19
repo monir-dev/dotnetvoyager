@@ -43,7 +43,7 @@ namespace Voyager.Core.Controllers
             browseColumnList = browseColumnList.Concat(new[] { identityColumn }).ToArray();
 
 
-            var listColumns = new List<string>();
+            List<string> listColumns = new List<string>();
             var columns = db.Instance().Select($"SELECT name FROM syscolumns WHERE id=OBJECT_ID('{tableName}')").ToArray();
             foreach(var column in columns)
             {
